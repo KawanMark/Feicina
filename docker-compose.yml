@@ -1,0 +1,20 @@
+
+version: '3.8'
+
+services:
+  postgres-db-feicina:
+    image: postgres:15
+    container_name: postgres-db-feicina
+    # Mapeamento de portas: conecta a porta 5432 de DENTRO do container
+    # com a porta 5432 de FORA (da nossa máquina). Assim, nosso app pode acessar.
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=oficina_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
