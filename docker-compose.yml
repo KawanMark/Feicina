@@ -1,20 +1,55 @@
-
-version: '3.8'
-
 services:
-  postgres-db-feicina:
-    image: postgres:15
-    container_name: postgres-db-feicina
-    # Mapeamento de portas: conecta a porta 5432 de DENTRO do container
-    # com a porta 5432 de FORA (da nossa máquina). Assim, nosso app pode acessar.
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=oficina_db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
-volumes:
-  postgres_data:
+  postgres:
+    image: 'postgres:15.6'
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: cc6240
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - cc6240
+
+  cassandra:
+    image: 'cassandra:5.0'
+    container_name: cassandra
+    ports:
+      - 7000:7000
+      - 9042:9042
+      - 9142:9142
+    environment:
+      - CASSANDRA_SEED=cassandra
+      - CASSANDRA_CLUSTER_NAME=CC6240
+      - CASSANDRA_USER=admin
+      - CASSANDRA_PASSWORD=admin
+    volumes:
+      - ./data/cassandra:/var/lib/cassandra
+    networks:
+      - cc6240
+
+
+  neo4j:
+    image: 'neo4j:5.22.0-community-bullseye'
+    container_name: neo4j
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - ./data/neo4j:/data
+    networks:
+      - cc6240
+
+  mongodb:
+    image: 'mongodb/mongodb-community-server:6.0.9-ubi9'
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongodb:/data
+    networks:
+      - cc6240
+
+networks:
+  cc6240:

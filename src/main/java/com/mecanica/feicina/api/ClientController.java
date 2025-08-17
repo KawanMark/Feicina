@@ -1,5 +1,8 @@
 package com.mecanica.feicina.api;
 
+import com.mecanica.feicina.api.dto.ClientRequestDTO;
+import com.mecanica.feicina.api.dto.ClientResponseDTO;
+import com.mecanica.feicina.api.mapper.ClientMapper;
 import com.mecanica.feicina.domain.ports.in.SearchClientUseCase;
 import com.mecanica.feicina.domain.model.Client;
 import com.mecanica.feicina.domain.ports.in.CreateClientUseCase;
@@ -16,22 +19,31 @@ import java.util.UUID;
 public class ClientController {
     private final CreateClientUseCase createClientUseCase;
     private final SearchClientUseCase searchClientUseCase;
+    private final ClientMapper clientMapper;
 
     //The controller is injected with the use case
-    public ClientController(CreateClientUseCase createClientUseCase, SearchClientUseCase searchClientUseCase) {
+    public ClientController(CreateClientUseCase createClientUseCase, SearchClientUseCase searchClientUseCase, ClientMapper clientMapper) {
         this.createClientUseCase = createClientUseCase;
         this.searchClientUseCase = searchClientUseCase;
+        this.clientMapper = clientMapper;
     }
 
     @PostMapping
-    public Client createClient(@RequestBody Client client) {
-        return createClientUseCase.createClient(client);
+    public ClientResponseDTO createClient(@RequestBody ClientRequestDTO requestDTO) {
+        Client clientDomain = clientMapper.toDomain(requestDTO);
+        Client savedClient = createClientUseCase.createClient(clientDomain);
+        return clientMapper.toResponseDTO(savedClient);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Client> searchClientById(@PathVariable UUID id) {
-        return searchClientUseCase.searchById(id)
-                .map(cliente -> ResponseEntity.ok(cliente))
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ClientResponseDTO> searchClientById(@PathVariable UUID id) {
+        try {
+            return searchClientUseCase.searchById(id)
+                    .map(clientMapper::toResponseDTO)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }
