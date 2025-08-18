@@ -66,6 +66,8 @@ data/neo4j/
 plugins/
 logs/
 run/
+data/
+
 
 # Docker e volumes
 docker-compose-data/
