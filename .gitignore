@@ -1,3 +1,4 @@
+# Arquivos de desenvolvimento e IDE
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
@@ -31,3 +32,41 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Bancos de dados ###
+# MongoDB
+data/db/
+*.ns
+*.0
+*.1
+*.2
+mongod.lock
+storage.bson
+
+# PostgreSQL
+data/postgres/
+postgresql/data/
+*.pid
+*.log
+pg_wal/
+pg_stat_tmp/
+
+# Cassandra
+data/cassandra/
+commitlog/
+saved_caches/
+*.log
+*.db
+
+# Neo4j
+data/neo4j/
+*.transaction.db.*
+*.neostore
+*.log
+plugins/
+logs/
+run/
+
+# Docker e volumes
+docker-compose-data/
+*.volume/
