@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.List;
 
 @Component
 public class ClientRepositoryAdapter implements ClientRepositoryPort {
@@ -25,5 +26,10 @@ public class ClientRepositoryAdapter implements ClientRepositoryPort {
     @Override
     public Optional<Client> searchById(UUID id) {
         return clientRepositoryJPA.searchById(id);
+    }
+
+    @Override
+    public List<Client> findAll() {
+        return clientRepositoryJPA.findAll();
     }
 }

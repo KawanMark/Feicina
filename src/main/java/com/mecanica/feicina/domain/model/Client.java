@@ -14,35 +14,33 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String nome;
-    private String telefone;
-    private String email;
+    private String name;
+    private String phone;
+    private String cpf;
 
     //Construtor for JPA
     public Client() {}
 
-    public Client(String nome, String telefone, String email){
-        this.nome = nome;
-        this.telefone = telefone;
-        this.email = email;
+    public Client(String name, String phone, String cpf){
+        this.name = name;
+        this.phone = phone;
+        this.cpf = cpf;
     }
 
     //Getters and Setter
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getTelefone() { return telefone; }
-    public void setTelefone(String telefone) { this.telefone = telefone; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getCpf() { return cpf; }
+    public void setCpf(String cpf) { this.cpf = cpf; }
 
 
-    public String getCpf() {
-        return null;
-    }
+
 }
 
