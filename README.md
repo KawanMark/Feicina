@@ -43,7 +43,7 @@ Esta seção contém todos os recursos e passos necessários para executar o amb
 ### Passos para Execução
 1.  **Clone o repositório:**
     ```bash
-    git clone <URL_DO_SEU_REPOSITORIO_AQUI>
+    git clone https://github.com/KawanMark/FeicinaClientS1.git
     ```
 
 2.  **Navegue até a pasta do serviço S2:**
